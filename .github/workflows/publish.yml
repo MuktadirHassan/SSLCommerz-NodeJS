@@ -3,14 +3,13 @@ on:
   pull_request:
     branches:
       - master
-  
+
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release'
+        description: "Version to release"
         required: true
-        default: 'patch'
-        
+        default: "patch"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -29,7 +28,7 @@ jobs:
       - run: yarn lint && yarn build
 
       - name: Ensure changesets
-        - run: yarn changeset status --since=master
+      - run: yarn changeset status --since=master
 
       - name: Create Release
         id: changesets
