@@ -1,15 +1,8 @@
 name: Publish
 on:
-  pull_request:
+  push:
     branches:
       - master
-
-  workflow_dispatch:
-    inputs:
-      version:
-        description: "Version to release"
-        required: true
-        default: "patch"
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
@@ -25,17 +18,17 @@ jobs:
           cache: "yarn"
 
       - run: yarn install --frozen-lockfile
+
       - run: yarn lint && yarn build
+
       - run: yarn changeset status --since=master
 
       - name: Create Release
         id: changesets
         uses: changesets/action@v1
+        with:
+          publish: yarn release
+          createGithubReleases: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          commit: "chore: release"
-          title: "chore: release"
-          version: "yarn changeset version"
-          publish: "yarn changeset build && yarn changeset tag && git push --follow-tags"
-          createGithubReleases: true
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
