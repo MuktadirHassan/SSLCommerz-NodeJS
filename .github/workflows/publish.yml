@@ -26,8 +26,6 @@ jobs:
 
       - run: yarn install --frozen-lockfile
       - run: yarn lint && yarn build
-
-      - name: Ensure changesets
       - run: yarn changeset status --since=master
 
       - name: Create Release
