@@ -1,5 +1,11 @@
 # sslcommerz-lts
 
+## 2.0.2
+
+### Patch Changes
+
+- 1b8bdd2: Update github workflow
+
 ## 2.0.1
 
 ### Patch Changes
