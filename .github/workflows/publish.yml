@@ -20,7 +20,7 @@ jobs:
       - run: yarn lint && yarn build
 
       - name: Ensure changesets
-      - run: yarn changeset status --since=master
+          run: yarn changeset status --since=master
 
       - name: Create Release
         id: changesets
